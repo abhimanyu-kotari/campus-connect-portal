@@ -1,0 +1,14 @@
+{
+  "name": "campus-connect-code",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "preview": "npm --prefix client run preview"
+  },
+  "devDependencies": {
+    "vite": "^8.2.0"
+  }
+}
