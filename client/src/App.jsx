@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import AuthModule from './components/AuthModule.jsx';
 import StudentPortal from './components/StudentPortal.jsx';
+import FacultyPortal from './components/FacultyPortal.jsx';
 
 export default function App() {
   const [activeView, setActiveView] = useState('student');
   const [activeTab, setActiveTab] = useState('login');
 
-  
   const scrollToAuth = () => {
     setTimeout(() => {
       document.getElementById('auth')?.scrollIntoView({
@@ -30,6 +30,9 @@ export default function App() {
       } else if (hash === '#student') {
         setActiveView('student');
         scrollToAuth();
+      } else if (hash === '#faculty') {
+        setActiveView('faculty');
+        scrollToAuth();
       }
     };
 
@@ -52,6 +55,15 @@ export default function App() {
 
       {activeView === 'student' && (
         <StudentPortal
+          onBackToHome={() => {
+            setActiveView('auth');
+            window.location.hash = '#login';
+          }}
+        />
+      )}
+
+      {activeView === 'faculty' && (
+        <FacultyPortal
           onBackToHome={() => {
             setActiveView('auth');
             window.location.hash = '#login';

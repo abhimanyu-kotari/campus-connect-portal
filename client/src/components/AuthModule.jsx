@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function AuthModule({ activeTab, setActiveTab, initialMode = 'login' }) {
-  const [internalMode, setInternalMode] = React.useState(
+export default function AuthModule({ activeTab, setActiveTab, initialMode = 'login', onSelectRole }) {
+  const [internalMode, setInternalMode] = useState(
     activeTab ? activeTab === 'login' : initialMode === 'login'
   );
+  const [selectedRole, setSelectedRole] = useState('student'); // 'student' | 'faculty'
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeTab) {
       setInternalMode(activeTab === 'login');
     }
@@ -20,7 +21,7 @@ export default function AuthModule({ activeTab, setActiveTab, initialMode = 'log
     }
   };
 
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: ''
@@ -37,10 +38,14 @@ export default function AuthModule({ activeTab, setActiveTab, initialMode = 'log
     e.preventDefault();
 
     if (isLogin) {
-      alert(`Logging in with: ${formData.email}`);
-      window.location.hash = '#student';
+      alert(`Logging in as ${selectedRole === 'student' ? 'Student' : 'Faculty Member'}: ${formData.email}`);
+      if (selectedRole === 'faculty') {
+        window.location.hash = '#faculty';
+      } else {
+        window.location.hash = '#student';
+      }
     } else {
-      alert(`New Student Registered: ${formData.name}`);
+      alert(`New ${selectedRole === 'student' ? 'Student' : 'Faculty'} Registered: ${formData.name}`);
       setLoginMode(true);
     }
   };
@@ -53,11 +58,35 @@ export default function AuthModule({ activeTab, setActiveTab, initialMode = 'log
       </div>
 
       <h2 style={styles.formTitle}>
-        {isLogin ? 'Student Login' : 'Student Registration'}
+        {isLogin ? 'Portal Authentication' : 'Create New Account'}
       </h2>
+
+      {/* Role Selection (Step 3 in User Flow) */}
+      <div style={{ marginBottom: '16px' }}>
+        <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#64748b', display: 'block', marginBottom: '8px' }}>
+          SELECT ROLE:
+        </span>
+        <div style={styles.roleContainer}>
+          <button
+            type="button"
+            style={selectedRole === 'student' ? styles.roleBtnActive : styles.roleBtn}
+            onClick={() => setSelectedRole('student')}
+          >
+            👨‍🎓 Student
+          </button>
+          <button
+            type="button"
+            style={selectedRole === 'faculty' ? styles.roleBtnActive : styles.roleBtn}
+            onClick={() => setSelectedRole('faculty')}
+          >
+            👨‍🏫 Faculty
+          </button>
+        </div>
+      </div>
 
       <div style={styles.tabContainer}>
         <button
+          type="button"
           style={isLogin ? styles.activeTab : styles.inactiveTab}
           onClick={() => setLoginMode(true)}
         >
@@ -65,6 +94,7 @@ export default function AuthModule({ activeTab, setActiveTab, initialMode = 'log
         </button>
 
         <button
+          type="button"
           style={!isLogin ? styles.activeTab : styles.inactiveTab}
           onClick={() => setLoginMode(false)}
         >
@@ -77,7 +107,7 @@ export default function AuthModule({ activeTab, setActiveTab, initialMode = 'log
           <input
             type="text"
             name="name"
-            placeholder="Full Name"
+            placeholder={selectedRole === 'student' ? 'Full Name (e.g. Abhimanyu Kotari)' : 'Full Name (e.g. Dr. Raman)'}
             value={formData.name}
             onChange={handleChange}
             style={styles.input}
@@ -88,7 +118,7 @@ export default function AuthModule({ activeTab, setActiveTab, initialMode = 'log
         <input
           type="email"
           name="email"
-          placeholder="RVU Email Address"
+          placeholder={selectedRole === 'student' ? 'RVU Student Email (e.g. student@rvu.edu.in)' : 'RVU Faculty Email (e.g. faculty@rvu.edu.in)'}
           value={formData.email}
           onChange={handleChange}
           style={styles.input}
@@ -106,7 +136,7 @@ export default function AuthModule({ activeTab, setActiveTab, initialMode = 'log
         />
 
         <button type="submit" style={styles.submitBtn}>
-          {isLogin ? 'Sign In to Portal' : 'Create Student Account'}
+          {isLogin ? `Sign In as ${selectedRole === 'student' ? 'Student' : 'Faculty'}` : 'Register Account'}
         </button>
       </form>
     </div>
@@ -115,11 +145,11 @@ export default function AuthModule({ activeTab, setActiveTab, initialMode = 'log
 
 const styles = {
   cardContainer: {
-    maxWidth: '400px',
+    maxWidth: '420px',
     margin: '30px auto',
     padding: '30px',
     borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+    boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
     backgroundColor: '#ffffff',
     textAlign: 'center',
     fontFamily: 'Arial, sans-serif'
@@ -127,7 +157,7 @@ const styles = {
 
   header: {
     backgroundColor: '#0A2240',
-    padding: '15px',
+    padding: '16px',
     borderRadius: '6px',
     marginBottom: '20px'
   },
@@ -149,6 +179,37 @@ const styles = {
     color: '#0A2240',
     fontSize: '18px',
     marginBottom: '15px'
+  },
+
+  roleContainer: {
+    display: 'flex',
+    gap: '10px',
+    justifyContent: 'center'
+  },
+
+  roleBtn: {
+    flex: 1,
+    padding: '10px',
+    borderRadius: '6px',
+    border: '1px solid #cbd5e1',
+    backgroundColor: '#f8fafc',
+    color: '#475569',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    fontSize: '13px',
+    transition: 'all 0.2s'
+  },
+
+  roleBtnActive: {
+    flex: 1,
+    padding: '10px',
+    borderRadius: '6px',
+    border: '2px solid #0A2240',
+    backgroundColor: '#0A2240',
+    color: '#F2A900',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    fontSize: '13px'
   },
 
   tabContainer: {
@@ -190,7 +251,8 @@ const styles = {
     borderRadius: '4px',
     border: '1px solid #cccccc',
     fontSize: '14px',
-    outline: 'none'
+    outline: 'none',
+    boxSizing: 'border-box'
   },
 
   submitBtn: {
