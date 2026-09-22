@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import profilePic from '../assets/profile.jpg';
 
 export default function StudentPortal({ onBackToHome }) {
   // State for active tab navigation (default: 'notices')
@@ -135,8 +136,41 @@ export default function StudentPortal({ onBackToHome }) {
         {/* SECTION 4: PROFILE */}
         {activeTab === 'profile' && (
           <div>
-            <h3>👤 Student Profile</h3>
-            <p style={styles.subText}>Name: RVU Student • Program: B.Tech CSE</p>
+            <h3 style={{ marginBottom: '16px', color: '#0A2240', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              👤 Student Profile
+            </h3>
+            <div style={styles.profileCard}>
+              <img
+                src={profilePic}
+                alt="Student Profile"
+                style={styles.profileImage}
+              />
+              <div style={styles.profileDetails}>
+                <h4 style={{ margin: '0 0 10px 0', fontSize: '18px', color: '#0A2240' }}>
+                  Abhimanyu Kotari
+                </h4>
+                <div style={styles.profileGrid}>
+                  <p style={styles.profileItem}>
+                    <span style={styles.profileLabel}>USN:</span> <strong>1RUA24SCS0002</strong>
+                  </p>
+                  <p style={styles.profileItem}>
+                    <span style={styles.profileLabel}>Batch:</span> <strong>2024</strong>
+                  </p>
+                  <p style={styles.profileItem}>
+                    <span style={styles.profileLabel}>Course:</span> <strong>B.Sc (Hons.) Computer Science</strong>
+                  </p>
+                  <p style={styles.profileItem}>
+                    <span style={styles.profileLabel}>School:</span> School of Computer Science & Engineering
+                  </p>
+                  <p style={styles.profileItem}>
+                    <span style={styles.profileLabel}>Institution:</span> RV University, Bengaluru
+                  </p>
+                  <p style={styles.profileItem}>
+                    <span style={styles.profileLabel}>Status:</span> <span style={styles.badgeSuccess}>Enrolled / Active</span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -144,7 +178,7 @@ export default function StudentPortal({ onBackToHome }) {
   );
 }
 
-// RV University Styling Palette (Unchanged)
+// RV University Styling Palette
 const styles = {
   container: { maxWidth: '850px', margin: '30px auto', fontFamily: 'Arial, sans-serif' },
   header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#0A2240', padding: '15px 20px', borderRadius: '8px 8px 0 0', color: '#fff' },
@@ -158,5 +192,44 @@ const styles = {
   subText: { margin: '4px 0 0 0', fontSize: '12px', color: '#666' },
   actionBtn: { backgroundColor: '#0A2240', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' },
   badgeSuccess: { backgroundColor: '#28a745', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' },
-  badgePending: { backgroundColor: '#ffc107', color: '#000', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }
+  badgePending: { backgroundColor: '#ffc107', color: '#000', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' },
+  profileCard: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '24px',
+    padding: '20px',
+    backgroundColor: '#f8fafc',
+    borderRadius: '8px',
+    border: '1px solid #e2e8f0',
+    flexWrap: 'wrap',
+    textAlign: 'left'
+  },
+  profileImage: {
+    width: '120px',
+    height: '145px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+    border: '3px solid #0A2240',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+  },
+  profileDetails: {
+    flex: 1,
+    minWidth: '240px'
+  },
+  profileGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '10px',
+    marginTop: '6px'
+  },
+  profileItem: {
+    margin: 0,
+    fontSize: '13px',
+    color: '#333'
+  },
+  profileLabel: {
+    color: '#64748b',
+    fontWeight: '600',
+    marginRight: '6px'
+  }
 };
