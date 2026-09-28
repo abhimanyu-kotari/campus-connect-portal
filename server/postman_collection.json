@@ -1,0 +1,125 @@
+{
+  "info": {
+    "name": "Campus Connect REST API (Lab 6)",
+    "description": "CS3301 Full Stack Development Lab 6 - RESTful API CRUD Collection for Postman",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "2. Get All Assignments (Read All)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/assignments",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "assignments"]
+        }
+      }
+    },
+    {
+      "name": "3. Get Single Assignment by ID (Read One)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/assignments/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "assignments", "1"]
+        }
+      }
+    },
+    {
+      "name": "4. Create New Assignment (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"subject\": \"CS3301 - Full Stack\",\n  \"title\": \"Lab 6: RESTful API Development\",\n  \"dueDate\": \"Oct 05, 2026\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/assignments",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "assignments"]
+        }
+      }
+    },
+    {
+      "name": "5. Update Assignment (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Lab 6: RESTful API Development (Updated)\",\n  \"status\": \"Submitted\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/assignments/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "assignments", "1"]
+        }
+      }
+    },
+    {
+      "name": "6. Submit Assignment Action (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/assignments/1/submit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "assignments", "1", "submit"]
+        }
+      }
+    },
+    {
+      "name": "7. Delete Assignment (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/assignments/2",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "assignments", "2"]
+        }
+      }
+    }
+  ]
+}
