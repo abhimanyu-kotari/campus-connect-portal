@@ -132,7 +132,13 @@ node src/app.js
 ```
 The server will start on `http://localhost:5000`.
 
----
+### 4. Test the RESTful API (Lab 6)
+Run the automated test suite verifying all 4 CRUD operations and middlewares:
+```bash
+cd server
+npm test
+```
+Or import `server/postman_collection.json` directly into Postman to test each endpoint interactively.
 
 ## 📝 License
 
