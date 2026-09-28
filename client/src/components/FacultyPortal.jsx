@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function FacultyPortal({ onBackToHome }) {
   // State for active tab navigation (matches User Flow diagram)
@@ -20,6 +20,29 @@ export default function FacultyPortal({ onBackToHome }) {
   const [newAssignCode, setNewAssignCode] = useState('CS3301');
   const [newAssignTitle, setNewAssignTitle] = useState('');
   const [newAssignDue, setNewAssignDue] = useState('');
+
+  // Fetch live assignments from REST API on mount
+  useEffect(() => {
+    fetch('http://localhost:5000/api/assignments')
+      .then((res) => {
+        if (!res.ok) throw new Error('API server unavailable');
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setAssignments(data.map((item) => ({
+            id: item.id,
+            code: item.subject?.split(' - ')[0] || 'CS3301',
+            title: item.title,
+            dueDate: item.dueDate || 'Sept 30, 2026',
+            submissions: item.submissions || 0
+          })));
+        }
+      })
+      .catch(() => {
+        // Fallback to local default state
+      });
+  }, []);
 
   // State for Attendance
   const [studentsAttendance, setStudentsAttendance] = useState([
@@ -59,21 +82,41 @@ export default function FacultyPortal({ onBackToHome }) {
     alert('Notice published to Campus Connect notice board!');
   };
 
-  const handlePostAssignment = (e) => {
+  const handlePostAssignment = async (e) => {
     e.preventDefault();
     if (!newAssignTitle.trim()) return;
     const item = {
       id: Date.now(),
       code: newAssignCode,
+      subject: `${newAssignCode} - Full Stack`,
       title: newAssignTitle.trim(),
       dueDate: newAssignDue || 'Next Week',
       submissions: 0
     };
+
+    try {
+      const res = await fetch('http://localhost:5000/api/assignments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: `${newAssignCode} - Full Stack`,
+          title: newAssignTitle.trim()
+        })
+      });
+      if (res.ok) {
+        const saved = await res.json();
+        item.id = saved.id;
+      }
+    } catch {
+      // Local fallback
+    }
+
     setAssignments([item, ...assignments]);
     setNewAssignTitle('');
     setNewAssignDue('');
     alert(`New Assignment posted for ${newAssignCode}!`);
   };
+
 
   const toggleStudentAttendance = (usn) => {
     setStudentsAttendance((prev) =>

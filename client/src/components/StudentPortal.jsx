@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import profilePic from '../assets/profile.jpg';
 
 export default function StudentPortal({ onBackToHome }) {
@@ -11,6 +11,29 @@ export default function StudentPortal({ onBackToHome }) {
     { id: 2, subject: 'CS3302 - DBMS', title: 'ER Diagram Project Report', status: 'Submitted', dueDate: 'Sept 01, 2026' },
     { id: 3, subject: 'CS3303 - Operating Systems', title: 'Process Scheduling Simulation', status: 'Pending', dueDate: 'Sept 30, 2026' }
   ]);
+
+  // Fetch live assignments from REST API on mount
+  useEffect(() => {
+    fetch('http://localhost:5000/api/assignments')
+      .then((res) => {
+        if (!res.ok) throw new Error('API server unavailable');
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setAssignments(data.map((item) => ({
+            id: item.id,
+            subject: item.subject || 'CS3301 - Full Stack',
+            title: item.title,
+            status: item.status || 'Pending',
+            dueDate: item.dueDate || 'Sept 30, 2026'
+          })));
+        }
+      })
+      .catch(() => {
+        // Graceful fallback to default state if backend server isn't running
+      });
+  }, []);
 
   const notices = [
     { id: 1, title: 'Mid-Term Exam Schedule Released', date: 'Sept 10, 2026', dept: 'SOCSE' },
@@ -41,7 +64,12 @@ export default function StudentPortal({ onBackToHome }) {
   const [profileSaved, setProfileSaved] = useState(false);
 
   // Event handler to toggle assignment status between Pending and Submitted
-  const handleAssignmentSubmit = (id) => {
+  const handleAssignmentSubmit = async (id) => {
+    try {
+      await fetch(`http://localhost:5000/api/assignments/${id}/submit`, { method: 'PUT' });
+    } catch {
+      // Local fallback
+    }
     setAssignments((prevAssignments) =>
       prevAssignments.map((assignment) =>
         assignment.id === id
@@ -50,6 +78,7 @@ export default function StudentPortal({ onBackToHome }) {
       )
     );
   };
+
 
   const handleProfileUpdate = (e) => {
     e.preventDefault();
