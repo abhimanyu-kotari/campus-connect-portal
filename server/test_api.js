@@ -1,13 +1,13 @@
 // =============================================================
-// EXPERIMENT 6: Automated API Test Suite & Postman Verification
-// Tests all 4 CRUD Operations and Middleware Responses
+// EXPERIMENT 7: Automated API & MongoDB Integration Test Suite
+// Tests all 4 CRUD Operations and Database Persistence
 // =============================================================
 
 const BASE_URL = 'http://localhost:5000';
 
 async function runTests() {
   console.log('====================================================');
-  console.log('  CS3301 Lab 6: RESTful API Test Suite Running...  ');
+  console.log('  CS3301 Lab 7: MongoDB & RESTful API Test Suite    ');
   console.log('====================================================\n');
 
   try {

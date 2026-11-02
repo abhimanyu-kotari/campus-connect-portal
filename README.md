@@ -86,15 +86,19 @@ Campus_Connect/
 │   │   ├── assets/                # Images & media assets
 │   │   └── components/
 │   │       ├── AuthModule.jsx     # Authentication component
-│   │       └── StudentPortal.jsx  # Student dashboard view
+│   │       ├── StudentPortal.jsx  # Student dashboard view (User Flow)
+│   │       └── FacultyPortal.jsx  # Faculty dashboard view (User Flow)
 │   └── public/                    # Static assets & icons
 └── server/                        # Backend REST API
     ├── package.json               # Server dependencies
+    ├── test_api.js                # Automated CRUD & DB test suite
+    ├── postman_collection.json    # Postman test collection
     └── src/
         ├── app.js                 # Express server configuration
         ├── config/
-        │   └── db.js              # Database connection handler
+        │   └── db.js              # MongoDB connection handler (Mongoose)
         ├── models/
+        │   ├── Assignment.js      # Assignment Mongoose schema & model
         │   └── User.js            # User data model
         └── routes/
             └── authRoutes.js      # Authentication endpoints
@@ -124,21 +128,28 @@ npm install
 npm run dev
 ```
 
-### 3. Run the Backend Server
+### 3. Run the Backend Server (with MongoDB)
+Make sure your local MongoDB service is running (default port `27017`), then start the Express server:
 ```bash
 cd server
 npm install
 node src/app.js
 ```
-The server will start on `http://localhost:5000`.
+The server will connect to MongoDB (`mongodb://localhost:27017/campus_connect`), auto-seed initial assignments if the database collection is empty, and listen on `http://localhost:5000`.
 
-### 4. Test the RESTful API (Lab 6)
-Run the automated test suite verifying all 4 CRUD operations and middlewares:
+### 4. Test the RESTful API & Database Operations (Labs 6 & 7)
+Run the automated test suite verifying all 4 CRUD operations, validation middlewares, and persistent MongoDB storage:
 ```bash
 cd server
 npm test
 ```
 Or import `server/postman_collection.json` directly into Postman to test each endpoint interactively.
+
+### 5. Inspect Data in MongoDB Compass
+1. Open **MongoDB Compass**.
+2. Connect to `mongodb://localhost:27017`.
+3. In the left database list, open **`campus_connect`**.
+4. Select the **`assignments`** collection to view real-time documents inserted, updated, and deleted by the app.
 
 ## 📝 License
 
