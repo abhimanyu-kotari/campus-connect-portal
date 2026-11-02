@@ -160,7 +160,7 @@ app.put('/api/assignments/:id', async (req, res, next) => {
     }
 
     const updated = await Assignment.findByIdAndUpdate(id, req.body, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true
     });
 
