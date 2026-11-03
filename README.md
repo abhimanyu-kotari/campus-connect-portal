@@ -9,6 +9,7 @@
 ## 🚀 Key Features
 
 ### 1. Modern Responsive Landing Page (`client/index.html`)
+
 - **Semantic HTML5 Structure**: Structured with `<header>`, `<nav>`, `<section>`, `<article>`, and `<footer>` elements.
 - **Layouts with CSS Grid & Flexbox**:
   - Flexbox-driven navigation header, brand badges, and action buttons.
@@ -18,29 +19,34 @@
 - **Mobile Responsiveness**: Adaptive media queries ensuring an optimal experience on mobile, tablet, and desktop screens.
 
 ### 2. Student Authentication System (`client/login.html`)
+
 - Dedicated RV University branded login & registration portal.
 - Tab-switching interface between **Student Login** and **Student Registration**.
 - Interactive notifications upon successful registration and login.
 - Direct redirection to student dashboard features.
 
 ### 3. Student Performance & Attendance Portal (`client/attendance.html`)
+
 - **Student Profile Summary**: Structured rendering of student academic details and enrollment status.
 - **Batch Grade Evaluator**: Automated mark processing and grade calculation.
 - **Interactive Attendance Tracker**: Real-time counter functionality for tracking lecture presence.
 - **Announcement Dialogs**: Interactive notification and prompt boxes.
 
 ### 4. Interactive Notice & Task Board (`client/experiment3.html`)
+
 - **Real-Time Input Reflection**: Live preview responding instantly to user typing without page refresh.
 - **Dynamic Content Management**: Add announcements and tasks dynamically to the active list.
 - **Task Actions**: Remove items and toggle completed status.
 - **Dark Mode Toggle**: Instant theme switching between light and dark modes.
 
 ### 5. Study & Task Planner (`client/experiment4.html`)
+
 - **State-Driven Architecture**: User interface automatically updates to reflect application state changes.
 - **Task Filtering & Priorities**: Filter tasks by status (`All`, `Pending`, `Completed`) with priority tags (`High`, `Medium`, `Low`).
 - **Local Persistence**: Automatically saves tasks to `localStorage` so data remains available across browser sessions.
 
 ### 6. Backend API Server (`server/`)
+
 - Built with **Node.js** and **Express**.
 - Modular routing architecture with authentication endpoints.
 - MongoDB and Mongoose integration for data persistence.
@@ -50,12 +56,12 @@
 
 ## 🛠️ Tech Stack
 
-| Domain | Technologies |
-| :--- | :--- |
-| **Frontend** | HTML5, CSS3, JavaScript (ES6+), React 19, Vite |
-| **Backend** | Node.js, Express.js, CORS, Dotenv |
-| **Database & Auth** | MongoDB, Mongoose, JWT, bcryptjs |
-| **Version Control** | Git, GitHub |
+| Domain              | Technologies                                   |
+| :------------------ | :--------------------------------------------- |
+| **Frontend**        | HTML5, CSS3, JavaScript (ES6+), React 19, Vite |
+| **Backend**         | Node.js, Express.js, CORS, Dotenv              |
+| **Database & Auth** | MongoDB, Mongoose, JWT, bcryptjs               |
+| **Version Control** | Git, GitHub                                    |
 
 ---
 
@@ -104,19 +110,23 @@ Campus_Connect/
 ## 💻 Getting Started
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/MedhaSrinath/Campus-connect.git
 cd Campus-connect
 ```
 
 ### 2. Run the Frontend
+
 You can open any of the HTML pages directly in your browser or with VS Code **Live Server**:
+
 - **Home Page**: `client/index.html`
 - **Login Portal**: `client/login.html`
 - **Notice Board**: `client/experiment3.html`
 - **Task Planner**: `client/experiment4.html`
 
 Alternatively, run the development server:
+
 ```bash
 cd client
 npm install
@@ -124,23 +134,30 @@ npm run dev
 ```
 
 ### 3. Run the Backend Server (with MongoDB)
+
 Make sure your local MongoDB service is running (default port `27017`), then start the Express server:
+
 ```bash
 cd server
 npm install
 node src/app.js
 ```
+
 The server will connect to MongoDB (`mongodb://localhost:27017/campus_connect`), auto-seed initial assignments if the database collection is empty, and listen on `http://localhost:5000`.
 
 ### 4. Test the RESTful API & Database Operations (Labs 6 & 7)
+
 Run the automated test suite verifying all 4 CRUD operations, validation middlewares, and persistent MongoDB storage:
+
 ```bash
 cd server
 npm test
 ```
+
 Or import `server/postman_collection.json` directly into Postman to test each endpoint interactively.
 
 ### 5. Inspect Data in MongoDB Compass
+
 1. Open **MongoDB Compass**.
 2. Connect to `mongodb://localhost:27017`.
 3. In the left database list, open **`campus_connect`**.
