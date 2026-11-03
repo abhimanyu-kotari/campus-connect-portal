@@ -1,10 +1,5 @@
 # 🎓 Campus Connect Portal
 
-> **RV University**  
-> *Repository:* [MedhaSrinath/Campus-connect](https://github.com/MedhaSrinath/Campus-connect)
-
----
-
 ## 📌 Project Overview
 
 **Campus Connect** is an integrated academic management portal designed to connect students, faculty, and administrators onto a single digital platform. The project provides a modern web interface for viewing university highlights, accessing dedicated role portals, managing schedules and notices in real time, and tracking academic attendance.
